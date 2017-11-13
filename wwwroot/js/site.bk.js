@@ -1,4 +1,4 @@
-// Write your JavaScript code.
+﻿// Write your JavaScript code.
 //kline convert
 
 
@@ -400,6 +400,7 @@
                     });
                     }
                 }
+
                   
                     function zoomed() {
                         x.zoomable().domain(d3.event.transform.rescaleX(zoomableInit).domain());
@@ -408,9 +409,12 @@
                         optionFunction.draw();
                     }
                
+
+
                     optionFunction.update(dim.url);
      
                     return optionFunction;
+              
 
     };
 }(jQuery));

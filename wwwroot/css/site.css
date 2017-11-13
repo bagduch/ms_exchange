@@ -1,5 +1,5 @@
 ﻿body {
-    padding-top: 50px;
+   
     padding-bottom: 20px;
 }
 
@@ -72,6 +72,16 @@ path.candle.down {
 
 .close.annotation.up path {
     fill: #00AA00;
+
+}
+
+.close.annotation.up text{
+    font-size: 10px!important;
+    fill: white;
+    text-shadow:none;
+}
+.close{
+    opacity:1;
 }
 
 path.volume {
@@ -222,4 +232,34 @@ path.middle, path.zero {
 
 .tradearrow path.highlight.sell {
     stroke: #9900FF;
+}
+.left-side-bar
+{
+    background: black;
+    position: fixed;
+    width: 60px;
+    height: 100%;
+    left: 0px;
+    top: 0px;
+}
+.right-side-bar
+{
+    background: black;
+    position: fixed;
+    width: 60px;
+    height: 100%;
+    right: 0px;
+    top: 0px;
+}
+.mid-content
+{
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    padding: 0 60px 0 60px;
+}
+.main-body
+{
+    position: relative;
+    height: 100%;
 }

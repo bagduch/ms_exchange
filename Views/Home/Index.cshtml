@@ -2,15 +2,36 @@
     ViewData["Title"] = "Home Page";
 }
 
-      <div id="kline"></div>
+
+
+<div class="left-side-bar">
+
+</div>
+<div class="mid-content">
+    <div class="main-body">
+     
+        <div class="col-sm-8">
+@Html.Partial("~/Views/Graphic/kline.cshtml")
+        </div>
+        <div class="col-sm-4"></div>
+        </div>
+</div>
+<div class="right-side-bar">
+  <button id="update" onclick="kline.update('json/kline2.json')">update</button>
+  <button id="volumn" onclick="">volumn</button>
+</div>
+
+
+
+
 
 @section scripts{
       <script type="text/javascript">
-        $("#kline").kline({
-                width:1200,
-             url:"json/kline.json",
+       var kline= $("#kline").kline({
+                url:"json/kline.json",
         });
-      
+      $("#volumn").click(kline.volumn);
+
 
         </script>
 }
