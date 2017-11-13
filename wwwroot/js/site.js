@@ -254,8 +254,8 @@
         ohlcSelection.append("g")
                 .attr("class", "percent axis");
 
-        // ohlcSelection.append("g")
-        //         .attr("class", "volume axis");
+        ohlcSelection.append("g")
+                .attr("class", "volume axis");
 
         var indicatorSelection = svg.selectAll("svg > g.indicator").data(["macd", "rsi"]).enter()
                 .append("g")
@@ -303,6 +303,25 @@
                 zoom.translate([0, 0]);
                 optionFunction.draw();
             },
+            "resize":function(){
+
+
+            },
+            "showvolume":function()
+            {
+                $(".volume").show();
+            },
+            "hidevolume":function()
+            {
+                $(".volume").hide();
+            },
+            "macdhide":function(){
+
+            },
+            "macdshow":function()
+            {
+
+            },
             "zoomed": function () {
                 x.zoomable().domain(d3.event.transform.rescaleX(zoomableInit).domain());
                 y.domain(d3.event.transform.rescaleY(yInit).domain());
@@ -317,10 +336,10 @@
                 svg.select("g.x.axis").call(xAxis);
                 svg.select("g.ohlc .axis").call(yAxis);
                 svg.select("g.volume.axis").call(volumeAxis);
-                // svg.select("g.macd .axis.right").call(macdAxis);
-                // svg.select("g.rsi .axis.right").call(rsiAxis);
-                // svg.select("g.macd .axis.left").call(macdAxisLeft);
-                // svg.select("g.rsi .axis.left").call(rsiAxisLeft);
+                svg.select("g.macd .axis.right").call(macdAxis);
+                svg.select("g.rsi .axis.right").call(rsiAxis);
+                svg.select("g.macd .axis.left").call(macdAxisLeft);
+                svg.select("g.rsi .axis.left").call(rsiAxisLeft);
                 // We know the data does not change, a simple refresh that does not perform data joins will suffice.
                 svg.select("g.candlestick").call(candlestick.refresh);
                 svg.select("g.close.annotation").call(closeAnnotation.refresh);
@@ -328,11 +347,11 @@
                 svg.select("g .sma.ma-0").call(sma0.refresh);
                 svg.select("g .sma.ma-1").call(sma1.refresh);
                 svg.select("g .ema.ma-2").call(ema2.refresh);
-                // svg.select("g.macd .indicator-plot").call(macd.refresh);
-                // svg.select("g.rsi .indicator-plot").call(rsi.refresh);
+                svg.select("g.macd .indicator-plot").call(macd.refresh);
+                svg.select("g.rsi .indicator-plot").call(rsi.refresh);
                 svg.select("g.crosshair.ohlc").call(ohlcCrosshair.refresh);
-                // svg.select("g.crosshair.macd").call(macdCrosshair.refresh);
-                // svg.select("g.crosshair.rsi").call(rsiCrosshair.refresh);
+                svg.select("g.crosshair.macd").call(macdCrosshair.refresh);
+                svg.select("g.crosshair.rsi").call(rsiCrosshair.refresh);
                 svg.select("g.trendlines").call(trendline.refresh);
                 svg.select("g.supstances").call(supstance.refresh);
                 svg.select("g.tradearrow").call(tradearrow.refresh);
@@ -361,46 +380,46 @@
                     x.domain(techan.scale.plot.time(data).domain());
                     y.domain(techan.scale.plot.ohlc(data.slice(indicatorPreRoll)).domain());
                     yPercent.domain(techan.scale.plot.percent(y, accessor(data[indicatorPreRoll])).domain());
-                    // yVolume.domain(techan.scale.plot.volume(data).domain());
+                    yVolume.domain(techan.scale.plot.volume(data).domain());
 
-                    // var trendlineData = [
-                    //     { start: { date: new Date(2014, 2, 11), value: 72.50 }, end: { date: new Date(2014, 5, 9), value: 63.34 } },
-                    //     { start: { date: new Date(2013, 10, 21), value: 43 }, end: { date: new Date(2014, 2, 17), value: 70.50 } }
-                    // ];
+                    var trendlineData = [
+                        { start: { date: new Date(2014, 2, 11), value: 72.50 }, end: { date: new Date(2014, 5, 9), value: 63.34 } },
+                        { start: { date: new Date(2013, 10, 21), value: 43 }, end: { date: new Date(2014, 2, 17), value: 70.50 } }
+                    ];
 
-                    // var supstanceData = [
-                    //     { start: new Date(2014, 2, 11), end: new Date(2014, 5, 9), value: 63.64 },
-                    //     { start: new Date(2013, 10, 21), end: new Date(2014, 2, 17), value: 55.50 }
-                    // ];
+                    var supstanceData = [
+                        { start: new Date(2014, 2, 11), end: new Date(2014, 5, 9), value: 63.64 },
+                        { start: new Date(2013, 10, 21), end: new Date(2014, 2, 17), value: 55.50 }
+                    ];
 
-                    // var trades = [
-                    //     { date: data[67].date, type: "buy", price: data[67].low, low: data[67].low, high: data[67].high },
-                    //     { date: data[100].date, type: "sell", price: data[100].high, low: data[100].low, high: data[100].high },
-                    //     { date: data[130].date, type: "buy", price: data[130].low, low: data[130].low, high: data[130].high },
-                    //     { date: data[170].date, type: "sell", price: data[170].low, low: data[170].low, high: data[170].high }
-                    // ];
+                    var trades = [
+                        { date: data[67].date, type: "buy", price: data[67].low, low: data[67].low, high: data[67].high },
+                        { date: data[100].date, type: "sell", price: data[100].high, low: data[100].low, high: data[100].high },
+                        { date: data[130].date, type: "buy", price: data[130].low, low: data[130].low, high: data[130].high },
+                        { date: data[170].date, type: "sell", price: data[170].low, low: data[170].low, high: data[170].high }
+                    ];
 
-                    // var macdData = techan.indicator.macd()(data);
-                    // macdScale.domain(techan.scale.plot.macd(macdData).domain());
-                    // var rsiData = techan.indicator.rsi()(data);
-                    // rsiScale.domain(techan.scale.plot.rsi(rsiData).domain());
+                    var macdData = techan.indicator.macd()(data);
+                    macdScale.domain(techan.scale.plot.macd(macdData).domain());
+                    var rsiData = techan.indicator.rsi()(data);
+                    rsiScale.domain(techan.scale.plot.rsi(rsiData).domain());
 
                     svg.select("g.candlestick").datum(data).call(candlestick);
                     svg.select("g.close.annotation").datum([data[data.length - 1]]).call(closeAnnotation);
-                    // svg.select("g.volume").datum(data).call(volume);
-                    // svg.select("g.sma.ma-0").datum(techan.indicator.sma().period(10)(data)).call(sma0);
-                    // svg.select("g.sma.ma-1").datum(techan.indicator.sma().period(20)(data)).call(sma1);
-                    // svg.select("g.ema.ma-2").datum(techan.indicator.ema().period(50)(data)).call(ema2);
-                    // svg.select("g.macd .indicator-plot").datum(macdData).call(macd);
-                    // svg.select("g.rsi .indicator-plot").datum(rsiData).call(rsi);
+                    svg.select("g.volume").datum(data).call(volume);
+                    svg.select("g.sma.ma-0").datum(techan.indicator.sma().period(10)(data)).call(sma0);
+                    svg.select("g.sma.ma-1").datum(techan.indicator.sma().period(20)(data)).call(sma1);
+                    svg.select("g.ema.ma-2").datum(techan.indicator.ema().period(50)(data)).call(ema2);
+                    svg.select("g.macd .indicator-plot").datum(macdData).call(macd);
+                    svg.select("g.rsi .indicator-plot").datum(rsiData).call(rsi);
 
                     svg.select("g.crosshair.ohlc").call(ohlcCrosshair).call(zoom);
-                    // svg.select("g.crosshair.macd").call(macdCrosshair).call(zoom);
-                    // svg.select("g.crosshair.rsi").call(rsiCrosshair).call(zoom);
-                    // svg.select("g.trendlines").datum(trendlineData).call(trendline).call(trendline.drag);
-                    // svg.select("g.supstances").datum(supstanceData).call(supstance).call(supstance.drag);
+                    svg.select("g.crosshair.macd").call(macdCrosshair).call(zoom);
+                    svg.select("g.crosshair.rsi").call(rsiCrosshair).call(zoom);
+                    svg.select("g.trendlines").datum(trendlineData).call(trendline).call(trendline.drag);
+                    svg.select("g.supstances").datum(supstanceData).call(supstance).call(supstance.drag);
 
-                    // svg.select("g.tradearrow").datum(trades).call(tradearrow);
+                    svg.select("g.tradearrow").datum(trades).call(tradearrow);
 
                     // Stash for zooming
                     zoomableInit = x.zoomable().domain([indicatorPreRoll, data.length]).copy(); // Zoom in a little to hide indicator preroll
@@ -419,7 +438,7 @@
         }
 
         optionFunction.update(dim.url);
-
+        optionFunction.hidevolume();
         return optionFunction;
 
     };
